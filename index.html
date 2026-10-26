@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>کلیپ‌ساز من</title>
+<style>
+body{font-family:Tahoma,sans-serif;background:#151525;color:white;padding:18px}
+main{max-width:600px;margin:auto}
+section{background:#252540;padding:16px;border-radius:14px;margin:14px 0}
+label{display:block;margin:12px 0 6px}
+input,textarea,button{box-sizing:border-box;width:100%;padding:12px;border-radius:8px;margin:5px 0}
+textarea{height:90px}
+button{background:#8b5cf6;color:white;border:0;font-size:16px}
+img{max-width:100%;margin-top:10px}
+</style>
+</head>
+<body>
+<main>
+<h2>🎬 کلیپ‌ساز من</h2>
+<p>متن، عکس و آهنگت رو انتخاب کن.</p>
+<section>
+<label>متن کلیپ</label>
+<textarea id="txt" placeholder="متن دلخواهت را بنویس..."></textarea>
+<label>انتخاب عکس</label>
+<input type="file" id="photo" accept="image/*">
+<img id="preview" hidden>
+<label>انتخاب آهنگ</label>
+<input type="file" id="music" accept="audio/*">
+<button onclick="showText()">نمایش متن کلیپ</button>
+<div id="result"></div>
+</section>
+<script>
+photo.onchange=()=>{
+if(photo.files[0]){
+preview.src=URL.createObjectURL(photo.files[0]);
+preview.hidden=false;
+}
+};
+function showText(){
+result.textContent=txt.value || "هنوز متنی ننوشته‌ای.";
+}
+</script>
+</main>
+</body>
+</html>
