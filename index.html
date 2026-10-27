@@ -3,269 +3,273 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>کلیپ‌ساز من</title>
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Tahoma,Arial,sans-serif;
-  background:#101321;
-  color:#fff;
-}
-header{
-  text-align:center;
-  padding:24px 12px;
-  background:linear-gradient(135deg,#6638d0,#1678c8);
-}
-header h1{margin:0 0 8px;font-size:25px}
-header p{margin:0;font-size:13px}
-main{max-width:650px;margin:auto;padding:16px}
-.card{
-  background:#1d2235;
-  padding:16px;
-  border-radius:16px;
-  margin-bottom:15px;
-}
-h2{font-size:17px;margin-top:0}
+body{margin:0;background:#101321;color:#fff;font-family:Tahoma,Arial,sans-serif}
+header{text-align:center;padding:22px;background:linear-gradient(135deg,#6638d0,#1678c8)}
+h1{font-size:25px;margin:0 0 8px}
+main{max-width:650px;margin:auto;padding:14px}
+.card{background:#1d2235;padding:16px;border-radius:15px;margin-bottom:14px}
+h2{font-size:18px}
 label{display:block;margin:14px 0 7px}
-input,textarea,button{
-  width:100%;
-  padding:12px;
-  border-radius:9px;
-  font:inherit;
-}
-input,textarea{
-  border:1px solid #444b67;
-  background:#111626;
-  color:white;
-}
-textarea{min-height:100px;resize:vertical}
-button{
-  border:0;
-  background:#8b5cf6;
-  color:white;
-  font-weight:bold;
-  margin-top:12px;
-  cursor:pointer;
-}
-button.secondary{background:#303951}
-#preview{
-  width:100%;
-  aspect-ratio:9/16;
-  max-height:500px;
-  background:#080a12;
-  border-radius:12px;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-}
-#preview img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  position:absolute;
-}
-#caption{
-  z-index:2;
-  padding:16px;
-  text-align:center;
-  font-size:22px;
-  font-weight:bold;
-  white-space:pre-wrap;
-  overflow-wrap:anywhere;
-  text-shadow:2px 2px 5px black;
-  background:#0005;
-}
-small,.note{color:#b9c2db;line-height:1.9}
+input,textarea,button{width:100%;padding:12px;border-radius:9px;font:inherit}
+input,textarea{background:#111626;color:#fff;border:1px solid #454c68}
+textarea{min-height:100px}
+button{border:0;background:#8054ee;color:white;margin-top:12px;font-weight:bold}
+button:disabled{opacity:.5}
+#preview{aspect-ratio:9/16;max-height:520px;background:#090b14;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;border-radius:12px}
+#poster{position:absolute;width:100%;height:100%;object-fit:contain}
+#caption{z-index:2;text-align:center;white-space:pre-wrap;overflow-wrap:anywhere;padding:18px;font-size:23px;font-weight:bold;text-shadow:2px 2px 6px #000;background:#0005}
+.note{color:#c2c9df;font-size:13px;line-height:1.9}
+#status{color:#9df3bc;line-height:1.9;font-size:14px}
 audio{width:100%;margin-top:12px}
-.status{color:#8ff0bb;font-size:13px;line-height:1.8}
 </style>
 </head>
 <body>
-
 <header>
-  <h1>🎬 کلیپ‌ساز من</h1>
-  <p>متن، عکس و موسیقی را برای کلیپ خودت آماده کن</p>
+<h1>🎬 کلیپ‌ساز من</h1>
+<p>داستانت را آماده کن و پیش‌نمایش بگیر</p>
 </header>
 
 <main>
-  <section class="card">
-    <h2>۱. ایدهٔ کلیپ</h2>
-    <label for="idea">متن یا داستان کلیپ</label>
-    <textarea id="idea" placeholder="مثلاً: یک کودک در جنگل جادویی دنبال یک اژدهای مهربان می‌گردد..."></textarea>
+<section class="card">
+<h2>۱. داستان کلیپ</h2>
+<label for="story">متن داستان</label>
+<textarea id="story" placeholder="مثلاً یک گربه در جنگل جادویی می‌دود..."></textarea>
 
-    <label for="photo">۲. انتخاب عکس</label>
-    <input id="photo" type="file" accept="image/*">
+<label for="imageFile">۲. انتخاب عکس</label>
+<input id="imageFile" type="file" accept="image/*">
 
-    <label for="music">۳. انتخاب آهنگ</label>
-    <input id="music" type="file" accept="audio/*">
+<label for="audioFile">۳. انتخاب آهنگ</label>
+<input id="audioFile" type="file" accept="audio/*">
 
-    <button id="make">ساخت پیش‌نمایش</button>
-    <p class="note">این نسخه فایل‌های انتخابی را در همین صفحه نمایش می‌دهد؛ هنوز متن را به انیمیشن واقعی تبدیل نمی‌کند.</p>
-  </section>
+<button id="previewBtn">ساخت پیش‌نمایش</button>
+<p class="note">این نسخه متن و عکس را نمایش می‌دهد. هنوز موتور تولید انیمیشن هوش مصنوعی ندارد.</p>
+</section>
 
-  <section class="card">
-    <h2>پیش‌نمایش کلیپ</h2>
-    <div id="preview">
-      <div id="caption">داستانت را اینجا بنویس 🎥</div>
-    </div>
-    <p id="status" class="status">آمادهٔ شروع</p>
-    <audio id="player" controls hidden></audio>
-    <button id="save" class="secondary">ذخیرهٔ ویدئو</button>
-    <p class="note">ذخیرهٔ ویدئو فقط وقتی فعال می‌شود که ضبط پیش‌نمایش انجام شده باشد.</p>
-  </section>
+<section class="card">
+<h2>پیش‌نمایش</h2>
+<div id="preview">
+<img id="poster" hidden alt="تصویر کلیپ">
+<div id="caption">داستانت را بنویس 🎥</div>
+</div>
+<audio id="audioPlayer" controls hidden></audio>
+<p id="status" role="status">آماده</p>
+<button id="saveBtn">شروع ضبط ویدئو</button>
+<button id="stopBtn" disabled>پایان ضبط و ذخیره</button>
+<p class="note">برای ذخیره، ابتدا ضبط را شروع کن و سپس روی پایان ضبط و ذخیره بزن.</p>
+</section>
 </main>
 
 <script>
-const idea = document.getElementById('idea');
-const photo = document.getElementById('photo');
-const music = document.getElementById('music');
-const caption = document.getElementById('caption');
-const preview = document.getElementById('preview');
-const status = document.getElementById('status');
-const player = document.getElementById('player');
+(() => {
+const $ = id => document.getElementById(id);
+const story = $('story');
+const imageFile = $('imageFile');
+const audioFile = $('audioFile');
+const poster = $('poster');
+const caption = $('caption');
+const status = $('status');
+const audioPlayer = $('audioPlayer');
+const saveBtn = $('saveBtn');
+const stopBtn = $('stopBtn');
 
 let imageURL = '';
-let musicURL = '';
+let audioURL = '';
 let recorder = null;
 let chunks = [];
-let videoURL = '';
+let canvas = null;
+let animationFrame = 0;
+let downloadURL = '';
 
-document.getElementById('make').addEventListener('click', () => {
-  caption.textContent = idea.value.trim() || 'داستانت را اینجا بنویس 🎥';
+function message(text) {
+  status.textContent = text;
+}
 
-  if (imageURL) {
-    const old = preview.querySelector('img');
-    if (old) old.remove();
-
-    const img = document.createElement('img');
-    img.src = imageURL;
-    img.alt = 'تصویر کلیپ';
-    preview.prepend(img);
-  }
-
-  if (musicURL) {
-    player.src = musicURL;
-    player.hidden = false;
-  }
-
-  status.textContent = 'پیش‌نمایش آماده است. برای ساخت انیمیشن واقعی، موتور ویدئوساز لازم است.';
-});
-
-photo.addEventListener('change', () => {
-  if (!photo.files || !photo.files[0]) return;
+imageFile.addEventListener('change', () => {
+  if (!imageFile.files || !imageFile.files[0]) return;
   if (imageURL) URL.revokeObjectURL(imageURL);
-  imageURL = URL.createObjectURL(photo.files[0]);
+  imageURL = URL.createObjectURL(imageFile.files[0]);
+  poster.src = imageURL;
+  poster.hidden = false;
 });
 
-music.addEventListener('change', () => {
-  if (!music.files || !music.files[0]) return;
-  if (musicURL) URL.revokeObjectURL(musicURL);
-  musicURL = URL.createObjectURL(music.files[0]);
-  player.src = musicURL;
-  player.hidden = false;
+audioFile.addEventListener('change', () => {
+  if (!audioFile.files || !audioFile.files[0]) return;
+  if (audioURL) URL.revokeObjectURL(audioURL);
+  audioURL = URL.createObjectURL(audioFile.files[0]);
+  audioPlayer.src = audioURL;
+  audioPlayer.hidden = false;
 });
 
-document.getElementById('save').addEventListener('click', () => {
-  if (!window.MediaRecorder || !preview.captureStream) {
-    status.textContent = 'مرورگر این قابلیت ضبط را پشتیبانی نمی‌کند.';
-    return;
+$('previewBtn').addEventListener('click', () => {
+  caption.textContent = story.value.trim() || 'داستانت را بنویس 🎥';
+  message('پیش‌نمایش آماده است.');
+});
+
+function drawFrame(ctx, width, height) {
+  ctx.fillStyle = '#17182b';
+  ctx.fillRect(0, 0, width, height);
+
+  if (poster.complete && poster.naturalWidth > 0 && !poster.hidden) {
+    const scale = Math.min(width / poster.naturalWidth,
+                           height / poster.naturalHeight);
+    const w = poster.naturalWidth * scale;
+    const h = poster.naturalHeight * scale;
+    ctx.drawImage(poster, (width-w)/2, (height-h)/2, w, h);
   }
 
-  if (recorder && recorder.state === 'recording') {
-    recorder.stop();
-    return;
+  const text = story.value.trim() || 'کلیپ من';
+  const maxWidth = width - 50;
+  const fontSize = 36;
+  ctx.font = `bold ${fontSize}px sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  const words = text.split(/\s+/);
+  const lines = [];
+  let line = '';
+
+  for (const word of words) {
+    const candidate = line ? line + ' ' + word : word;
+    if (ctx.measureText(candidate).width > maxWidth && line) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = candidate;
+    }
   }
+  if (line) lines.push(line);
 
-  const canvas = document.createElement('canvas');
-  canvas.width = 720;
-  canvas.height = 1280;
-  const ctx = canvas.getContext('2d');
+  const lineHeight = 48;
+  const blockHeight = lines.length * lineHeight;
+  const startY = height / 2 - blockHeight / 2 + lineHeight / 2;
 
-  const draw = () => {
-    ctx.fillStyle = '#15172a';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#0009';
+  ctx.fillRect(0, height / 2 - blockHeight / 2 - 15,
+               width, blockHeight + 30);
 
-    if (imageURL) {
-      const img = preview.querySelector('img');
-      if (img && img.complete) {
-        const scale = Math.min(
-          canvas.width / img.naturalWidth,
-          canvas.height / img.naturalHeight
-        );
-        const w = img.naturalWidth * scale;
-        const h = img.naturalHeight * scale;
-        ctx.drawImage(img, (canvas.width-w)/2, (canvas.height-h)/2, w, h);
-      }
-    }
+  ctx.fillStyle = 'white';
+  lines.forEach((text, i) => {
+    ctx.fillText(text, width/2, startY + i*lineHeight, maxWidth);
+  });
+}
 
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 38px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
+function chooseMimeType() {
+  if (!window.MediaRecorder ||
+      !MediaRecorder.isTypeSupported) return '';
 
-    const words = (idea.value || 'کلیپ من').split(/\s+/);
-    let lines = [], line = '';
-    for (const word of words) {
-      const test = line ? line + ' ' + word : word;
-      if (ctx.measureText(test).width > 620 && line) {
-        lines.push(line);
-        line = word;
-      } else {
-        line = test;
-      }
-    }
-    if (line) lines.push(line);
+  const types = [
+    'video/webm;codecs=vp8',
+    'video/webm',
+    'video/mp4'
+  ];
+  return types.find(type => MediaRecorder.isTypeSupported(type)) || '';
+}
 
-    const lineHeight = 52;
-    const startY = canvas.height / 2 -
-      (lines.length - 1) * lineHeight / 2;
-
-    lines.forEach((text, i) => {
-      ctx.fillText(text, 360, startY + i * lineHeight, 640);
-    });
-  };
-
-  draw();
-  const stream = canvas.captureStream(24);
-  chunks = [];
-
+saveBtn.addEventListener('click', () => {
   try {
-    recorder = new MediaRecorder(stream, {
-      mimeType: 'video/webm'
-    });
-  } catch (e) {
-    recorder = new MediaRecorder(stream);
+    if (!window.MediaRecorder) {
+      message('این مرورگر ضبط ویدئو را پشتیبانی نمی‌کند. Chrome را به‌روز کن.');
+      return;
+    }
+
+    if (!HTMLCanvasElement.prototype.captureStream) {
+      message('ضبط تصویر در این مرورگر در دسترس نیست.');
+      return;
+    }
+
+    canvas = document.createElement('canvas');
+    canvas.width = 720;
+    canvas.height = 1280;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      message('ساخت تصویر ممکن نشد.');
+      return;
+    }
+
+    drawFrame(ctx, canvas.width, canvas.height);
+
+    const stream = canvas.captureStream(24);
+    const mimeType = chooseMimeType();
+    const options = mimeType ? {mimeType} : undefined;
+
+    recorder = options
+      ? new MediaRecorder(stream, options)
+      : new MediaRecorder(stream);
+
+    chunks = [];
+
+    recorder.ondataavailable = event => {
+      if (event.data && event.data.size > 0) {
+        chunks.push(event.data);
+      }
+    };
+
+    recorder.onerror = () => {
+      message('خطای ضبط رخ داد. دوباره امتحان کن.');
+    };
+
+    recorder.onstop = () => {
+      stream.getTracks().forEach(track => track.stop());
+      cancelAnimationFrame(animationFrame);
+
+      if (!chunks.length) {
+        message('ویدئو تولید نشد؛ دوباره امتحان کن.');
+        saveBtn.disabled = false;
+        stopBtn.disabled = true;
+        return;
+      }
+
+      const type = recorder.mimeType || 'video/webm';
+      const blob = new Blob(chunks, {type});
+
+      if (downloadURL) URL.revokeObjectURL(downloadURL);
+      downloadURL = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = type.includes('mp4')
+        ? 'my-clip.mp4' : 'my-clip.webm';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      message('ضبط تمام شد. اگر دانلود خودکار نشد، دوباره بگو.');
+      saveBtn.disabled = false;
+      stopBtn.disabled = true;
+    };
+
+    recorder.start(500);
+    saveBtn.disabled = true;
+    stopBtn.disabled = false;
+    message('ضبط شروع شد؛ برای ذخیره دکمهٔ پایان ضبط را بزن.');
+
+    const render = () => {
+      if (recorder && recorder.state === 'recording') {
+        drawFrame(ctx, canvas.width, canvas.height);
+        animationFrame = requestAnimationFrame(render);
+      }
+    };
+    render();
+
+  } catch (error) {
+    message('خطا: ' + (error.message || 'ضبط آغاز نشد.'));
+    saveBtn.disabled = false;
+    stopBtn.disabled = true;
   }
-
-  recorder.ondataavailable = e => {
-    if (e.data && e.data.size) chunks.push(e.data);
-  };
-
-  recorder.onstop = () => {
-    const blob = new Blob(chunks, {
-      type: recorder.mimeType || 'video/webm'
-    });
-    if (videoURL) URL.revokeObjectURL(videoURL);
-    videoURL = URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.href = videoURL;
-    a.download = 'my-clip.webm';
-    a.click();
-
-    stream.getTracks().forEach(track => track.stop());
-    status.textContent = 'فایل ویدئو دانلود شد.';
-    document.getElementById('save').textContent = 'ذخیرهٔ ویدئو';
-  };
-
-  recorder.start();
-  status.textContent = 'در حال ضبط پیش‌نمایش؛ دوباره دکمه را بزن تا ذخیره شود.';
-  document.getElementById('save').textContent = 'پایان ضبط و دانلود';
 });
+
+stopBtn.addEventListener('click', () => {
+  if (recorder && recorder.state === 'recording') {
+    stopBtn.disabled = true;
+    recorder.stop();
+  }
+});
+})();
 </script>
 </body>
 </html>
