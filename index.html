@@ -3,159 +3,268 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>کلیپ‌ساز هوشمند فارسی</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>کلیپ‌ساز من</title>
 <style>
 *{box-sizing:border-box}
 body{
-  margin:0;padding:18px;
-  font-family:Tahoma,sans-serif;
-  background:#10101e;color:#fff;
+  margin:0;
+  font-family:Tahoma,Arial,sans-serif;
+  background:#101321;
+  color:#fff;
 }
-main{max-width:650px;margin:auto}
-h1{font-size:25px;color:#c4b5fd}
-p{line-height:1.9;color:#c9c9df}
-section{
-  background:#202039;padding:18px;
-  border-radius:16px;margin:16px 0;
+header{
+  text-align:center;
+  padding:24px 12px;
+  background:linear-gradient(135deg,#6638d0,#1678c8);
 }
-label{display:block;margin:15px 0 8px}
-input,textarea,select,button{
-  width:100%;padding:13px;margin:5px 0;
-  border-radius:9px;border:1px solid #454563;
+header h1{margin:0 0 8px;font-size:25px}
+header p{margin:0;font-size:13px}
+main{max-width:650px;margin:auto;padding:16px}
+.card{
+  background:#1d2235;
+  padding:16px;
+  border-radius:16px;
+  margin-bottom:15px;
+}
+h2{font-size:17px;margin-top:0}
+label{display:block;margin:14px 0 7px}
+input,textarea,button{
+  width:100%;
+  padding:12px;
+  border-radius:9px;
   font:inherit;
 }
-input,textarea,select{
-  background:#151528;color:white;
+input,textarea{
+  border:1px solid #444b67;
+  background:#111626;
+  color:white;
 }
-textarea{min-height:120px;resize:vertical}
+textarea{min-height:100px;resize:vertical}
 button{
-  background:#8b5cf6;color:white;border:0;
-  cursor:pointer;font-weight:bold;
+  border:0;
+  background:#8b5cf6;
+  color:white;
+  font-weight:bold;
+  margin-top:12px;
+  cursor:pointer;
 }
-button.secondary{background:#383854}
-button:disabled{opacity:.5}
+button.secondary{background:#303951}
 #preview{
-  width:100%;max-height:350px;object-fit:contain;
-  margin-top:12px;border-radius:12px;
+  width:100%;
+  aspect-ratio:9/16;
+  max-height:500px;
+  background:#080a12;
+  border-radius:12px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
 }
-#status{
-  background:#151528;padding:12px;
-  border-radius:10px;line-height:1.9;
+#preview img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  position:absolute;
+}
+#caption{
+  z-index:2;
+  padding:16px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
   white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  text-shadow:2px 2px 5px black;
+  background:#0005;
 }
-small{color:#b8b8d5;line-height:1.8}
-.hidden{display:none}
+small,.note{color:#b9c2db;line-height:1.9}
+audio{width:100%;margin-top:12px}
+.status{color:#8ff0bb;font-size:13px;line-height:1.8}
 </style>
 </head>
 <body>
+
+<header>
+  <h1>🎬 کلیپ‌ساز من</h1>
+  <p>متن، عکس و موسیقی را برای کلیپ خودت آماده کن</p>
+</header>
+
 <main>
-<h1>🎬 کلیپ‌ساز هوشمند فارسی</h1>
-<p>داستانت را بنویس، تنظیمات را انتخاب کن و برای ساخت انیمیشن آماده شو.</p>
+  <section class="card">
+    <h2>۱. ایدهٔ کلیپ</h2>
+    <label for="idea">متن یا داستان کلیپ</label>
+    <textarea id="idea" placeholder="مثلاً: یک کودک در جنگل جادویی دنبال یک اژدهای مهربان می‌گردد..."></textarea>
 
-<section>
-<h3>۱. داستان و صحنه</h3>
-<label for="story">توضیح انیمیشنی که می‌خواهی بسازی</label>
-<textarea id="story" placeholder="مثلاً: یک پسر بچه در جنگل جادویی می‌دود، پروانه‌ها پرواز می‌کنند و دوربین آرام دنبالش حرکت می‌کند..."></textarea>
+    <label for="photo">۲. انتخاب عکس</label>
+    <input id="photo" type="file" accept="image/*">
 
-<label for="style">سبک انیمیشن</label>
-<select id="style">
-<option value="3D cartoon">کارتونی سه‌بعدی</option>
-<option value="anime">انیمه</option>
-<option value="realistic">واقع‌گرایانه</option>
-<option value="fantasy">فانتزی و جادویی</option>
-<option value="clay animation">استاپ‌موشن خمیری</option>
-</select>
+    <label for="music">۳. انتخاب آهنگ</label>
+    <input id="music" type="file" accept="audio/*">
 
-<label for="duration">مدت کلیپ</label>
-<select id="duration">
-<option value="5">۵ ثانیه</option>
-<option value="10">۱۰ ثانیه</option>
-<option value="15">۱۵ ثانیه</option>
-</select>
-</section>
+    <button id="make">ساخت پیش‌نمایش</button>
+    <p class="note">این نسخه فایل‌های انتخابی را در همین صفحه نمایش می‌دهد؛ هنوز متن را به انیمیشن واقعی تبدیل نمی‌کند.</p>
+  </section>
 
-<section>
-<h3>۲. فایل‌های دلخواه</h3>
-<label for="photo">انتخاب عکس مرجع (اختیاری)</label>
-<input id="photo" type="file" accept="image/*">
-<img id="preview" class="hidden" alt="پیش‌نمایش عکس">
-
-<label for="music">انتخاب آهنگ (اختیاری)</label>
-<input id="music" type="file" accept="audio/*">
-<audio id="audioPreview" controls class="hidden" style="width:100%;margin-top:10px"></audio>
-</section>
-
-<section>
-<h3>۳. ساخت انیمیشن</h3>
-<p>متن درخواست به موتور تولید ویدئو آماده می‌شود.</p>
-<button id="prepare">آماده‌سازی درخواست انیمیشن</button>
-<button id="copy" class="secondary">کپی متن درخواست</button>
-<div id="status" role="status">هنوز درخواستی آماده نشده است.</div>
-</section>
-
-<section>
-<h3>۴. اتصال موتور هوش مصنوعی</h3>
-<p>برای تولید ویدئوی واقعی باید یک سرویس متن‌به‌ویدئو به برنامه متصل شود.</p>
-<p>این نسخه هنوز به موتور تولید ویدئو وصل نیست و دکمهٔ آماده‌سازی به‌تنهایی ویدئو تولید نمی‌کند.</p>
-<small>
-نکته امنیتی: کلید خصوصی سرویس هوش مصنوعی را داخل این فایل HTML قرار نده؛ برای اتصال امن معمولاً به یک سرور واسط نیاز است.
-</small>
-</section>
+  <section class="card">
+    <h2>پیش‌نمایش کلیپ</h2>
+    <div id="preview">
+      <div id="caption">داستانت را اینجا بنویس 🎥</div>
+    </div>
+    <p id="status" class="status">آمادهٔ شروع</p>
+    <audio id="player" controls hidden></audio>
+    <button id="save" class="secondary">ذخیرهٔ ویدئو</button>
+    <p class="note">ذخیرهٔ ویدئو فقط وقتی فعال می‌شود که ضبط پیش‌نمایش انجام شده باشد.</p>
+  </section>
 </main>
 
 <script>
-const $ = id => document.getElementById(id);
-let requestText = "";
+const idea = document.getElementById('idea');
+const photo = document.getElementById('photo');
+const music = document.getElementById('music');
+const caption = document.getElementById('caption');
+const preview = document.getElementById('preview');
+const status = document.getElementById('status');
+const player = document.getElementById('player');
 
-$("photo").addEventListener("change", () => {
-  const file = $("photo").files[0];
-  if (!file) return;
-  $("preview").src = URL.createObjectURL(file);
-  $("preview").classList.remove("hidden");
+let imageURL = '';
+let musicURL = '';
+let recorder = null;
+let chunks = [];
+let videoURL = '';
+
+document.getElementById('make').addEventListener('click', () => {
+  caption.textContent = idea.value.trim() || 'داستانت را اینجا بنویس 🎥';
+
+  if (imageURL) {
+    const old = preview.querySelector('img');
+    if (old) old.remove();
+
+    const img = document.createElement('img');
+    img.src = imageURL;
+    img.alt = 'تصویر کلیپ';
+    preview.prepend(img);
+  }
+
+  if (musicURL) {
+    player.src = musicURL;
+    player.hidden = false;
+  }
+
+  status.textContent = 'پیش‌نمایش آماده است. برای ساخت انیمیشن واقعی، موتور ویدئوساز لازم است.';
 });
 
-$("music").addEventListener("change", () => {
-  const file = $("music").files[0];
-  if (!file) return;
-  $("audioPreview").src = URL.createObjectURL(file);
-  $("audioPreview").classList.remove("hidden");
+photo.addEventListener('change', () => {
+  if (!photo.files || !photo.files[0]) return;
+  if (imageURL) URL.revokeObjectURL(imageURL);
+  imageURL = URL.createObjectURL(photo.files[0]);
 });
 
-$("prepare").addEventListener("click", () => {
-  const story = $("story").value.trim();
-  if (!story) {
-    $("status").textContent = "اول داستان یا توضیح صحنه را بنویس.";
+music.addEventListener('change', () => {
+  if (!music.files || !music.files[0]) return;
+  if (musicURL) URL.revokeObjectURL(musicURL);
+  musicURL = URL.createObjectURL(music.files[0]);
+  player.src = musicURL;
+  player.hidden = false;
+});
+
+document.getElementById('save').addEventListener('click', () => {
+  if (!window.MediaRecorder || !preview.captureStream) {
+    status.textContent = 'مرورگر این قابلیت ضبط را پشتیبانی نمی‌کند.';
     return;
   }
 
-  requestText =
-`Create an animated video.
-Visual style: ${$("style").value}.
-Duration: ${$("duration").value} seconds.
-Scene description: ${story}
-Use fluid motion, consistent characters, cinematic camera movement,
-natural lighting and coherent scene transitions.
-Do not create a static image. Generate actual moving video.`;
-
-  $("status").textContent =
-    "درخواست آماده شد؛ اما هنوز موتور تولید ویدئو متصل نیست.\n\n" +
-    requestText;
-});
-
-$("copy").addEventListener("click", async () => {
-  if (!requestText) {
-    $("status").textContent =
-      "اول داستان را بنویس و روی «آماده‌سازی درخواست انیمیشن» بزن.";
+  if (recorder && recorder.state === 'recording') {
+    recorder.stop();
     return;
   }
+
+  const canvas = document.createElement('canvas');
+  canvas.width = 720;
+  canvas.height = 1280;
+  const ctx = canvas.getContext('2d');
+
+  const draw = () => {
+    ctx.fillStyle = '#15172a';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    if (imageURL) {
+      const img = preview.querySelector('img');
+      if (img && img.complete) {
+        const scale = Math.min(
+          canvas.width / img.naturalWidth,
+          canvas.height / img.naturalHeight
+        );
+        const w = img.naturalWidth * scale;
+        const h = img.naturalHeight * scale;
+        ctx.drawImage(img, (canvas.width-w)/2, (canvas.height-h)/2, w, h);
+      }
+    }
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 38px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    const words = (idea.value || 'کلیپ من').split(/\s+/);
+    let lines = [], line = '';
+    for (const word of words) {
+      const test = line ? line + ' ' + word : word;
+      if (ctx.measureText(test).width > 620 && line) {
+        lines.push(line);
+        line = word;
+      } else {
+        line = test;
+      }
+    }
+    if (line) lines.push(line);
+
+    const lineHeight = 52;
+    const startY = canvas.height / 2 -
+      (lines.length - 1) * lineHeight / 2;
+
+    lines.forEach((text, i) => {
+      ctx.fillText(text, 360, startY + i * lineHeight, 640);
+    });
+  };
+
+  draw();
+  const stream = canvas.captureStream(24);
+  chunks = [];
+
   try {
-    await navigator.clipboard.writeText(requestText);
-    $("status").textContent = "متن درخواست کپی شد.";
-  } catch {
-    $("status").textContent =
-      "کپی خودکار ممکن نشد. متن درخواست را از کادر بالا انتخاب و کپی کن.";
+    recorder = new MediaRecorder(stream, {
+      mimeType: 'video/webm'
+    });
+  } catch (e) {
+    recorder = new MediaRecorder(stream);
   }
+
+  recorder.ondataavailable = e => {
+    if (e.data && e.data.size) chunks.push(e.data);
+  };
+
+  recorder.onstop = () => {
+    const blob = new Blob(chunks, {
+      type: recorder.mimeType || 'video/webm'
+    });
+    if (videoURL) URL.revokeObjectURL(videoURL);
+    videoURL = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = videoURL;
+    a.download = 'my-clip.webm';
+    a.click();
+
+    stream.getTracks().forEach(track => track.stop());
+    status.textContent = 'فایل ویدئو دانلود شد.';
+    document.getElementById('save').textContent = 'ذخیرهٔ ویدئو';
+  };
+
+  recorder.start();
+  status.textContent = 'در حال ضبط پیش‌نمایش؛ دوباره دکمه را بزن تا ذخیره شود.';
+  document.getElementById('save').textContent = 'پایان ضبط و دانلود';
 });
 </script>
 </body>
