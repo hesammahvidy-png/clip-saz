@@ -1,46 +1,162 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>کلیپ‌ساز من</title>
+<title>کلیپ‌ساز هوشمند فارسی</title>
 <style>
-body{font-family:Tahoma,sans-serif;background:#151525;color:white;padding:18px}
-main{max-width:600px;margin:auto}
-section{background:#252540;padding:16px;border-radius:14px;margin:14px 0}
-label{display:block;margin:12px 0 6px}
-input,textarea,button{box-sizing:border-box;width:100%;padding:12px;border-radius:8px;margin:5px 0}
-textarea{height:90px}
-button{background:#8b5cf6;color:white;border:0;font-size:16px}
-img{max-width:100%;margin-top:10px}
+*{box-sizing:border-box}
+body{
+  margin:0;padding:18px;
+  font-family:Tahoma,sans-serif;
+  background:#10101e;color:#fff;
+}
+main{max-width:650px;margin:auto}
+h1{font-size:25px;color:#c4b5fd}
+p{line-height:1.9;color:#c9c9df}
+section{
+  background:#202039;padding:18px;
+  border-radius:16px;margin:16px 0;
+}
+label{display:block;margin:15px 0 8px}
+input,textarea,select,button{
+  width:100%;padding:13px;margin:5px 0;
+  border-radius:9px;border:1px solid #454563;
+  font:inherit;
+}
+input,textarea,select{
+  background:#151528;color:white;
+}
+textarea{min-height:120px;resize:vertical}
+button{
+  background:#8b5cf6;color:white;border:0;
+  cursor:pointer;font-weight:bold;
+}
+button.secondary{background:#383854}
+button:disabled{opacity:.5}
+#preview{
+  width:100%;max-height:350px;object-fit:contain;
+  margin-top:12px;border-radius:12px;
+}
+#status{
+  background:#151528;padding:12px;
+  border-radius:10px;line-height:1.9;
+  white-space:pre-wrap;
+}
+small{color:#b8b8d5;line-height:1.8}
+.hidden{display:none}
 </style>
 </head>
 <body>
 <main>
-<h2>🎬 کلیپ‌ساز من</h2>
-<p>متن، عکس و آهنگت رو انتخاب کن.</p>
+<h1>🎬 کلیپ‌ساز هوشمند فارسی</h1>
+<p>داستانت را بنویس، تنظیمات را انتخاب کن و برای ساخت انیمیشن آماده شو.</p>
+
 <section>
-<label>متن کلیپ</label>
-<textarea id="txt" placeholder="متن دلخواهت را بنویس..."></textarea>
-<label>انتخاب عکس</label>
-<input type="file" id="photo" accept="image/*">
-<img id="preview" hidden>
-<label>انتخاب آهنگ</label>
-<input type="file" id="music" accept="audio/*">
-<button onclick="showText()">نمایش متن کلیپ</button>
-<div id="result"></div>
+<h3>۱. داستان و صحنه</h3>
+<label for="story">توضیح انیمیشنی که می‌خواهی بسازی</label>
+<textarea id="story" placeholder="مثلاً: یک پسر بچه در جنگل جادویی می‌دود، پروانه‌ها پرواز می‌کنند و دوربین آرام دنبالش حرکت می‌کند..."></textarea>
+
+<label for="style">سبک انیمیشن</label>
+<select id="style">
+<option value="3D cartoon">کارتونی سه‌بعدی</option>
+<option value="anime">انیمه</option>
+<option value="realistic">واقع‌گرایانه</option>
+<option value="fantasy">فانتزی و جادویی</option>
+<option value="clay animation">استاپ‌موشن خمیری</option>
+</select>
+
+<label for="duration">مدت کلیپ</label>
+<select id="duration">
+<option value="5">۵ ثانیه</option>
+<option value="10">۱۰ ثانیه</option>
+<option value="15">۱۵ ثانیه</option>
+</select>
 </section>
-<script>
-photo.onchange=()=>{
-if(photo.files[0]){
-preview.src=URL.createObjectURL(photo.files[0]);
-preview.hidden=false;
-}
-};
-function showText(){
-result.textContent=txt.value || "هنوز متنی ننوشته‌ای.";
-}
-</script>
+
+<section>
+<h3>۲. فایل‌های دلخواه</h3>
+<label for="photo">انتخاب عکس مرجع (اختیاری)</label>
+<input id="photo" type="file" accept="image/*">
+<img id="preview" class="hidden" alt="پیش‌نمایش عکس">
+
+<label for="music">انتخاب آهنگ (اختیاری)</label>
+<input id="music" type="file" accept="audio/*">
+<audio id="audioPreview" controls class="hidden" style="width:100%;margin-top:10px"></audio>
+</section>
+
+<section>
+<h3>۳. ساخت انیمیشن</h3>
+<p>متن درخواست به موتور تولید ویدئو آماده می‌شود.</p>
+<button id="prepare">آماده‌سازی درخواست انیمیشن</button>
+<button id="copy" class="secondary">کپی متن درخواست</button>
+<div id="status" role="status">هنوز درخواستی آماده نشده است.</div>
+</section>
+
+<section>
+<h3>۴. اتصال موتور هوش مصنوعی</h3>
+<p>برای تولید ویدئوی واقعی باید یک سرویس متن‌به‌ویدئو به برنامه متصل شود.</p>
+<p>این نسخه هنوز به موتور تولید ویدئو وصل نیست و دکمهٔ آماده‌سازی به‌تنهایی ویدئو تولید نمی‌کند.</p>
+<small>
+نکته امنیتی: کلید خصوصی سرویس هوش مصنوعی را داخل این فایل HTML قرار نده؛ برای اتصال امن معمولاً به یک سرور واسط نیاز است.
+</small>
+</section>
 </main>
+
+<script>
+const $ = id => document.getElementById(id);
+let requestText = "";
+
+$("photo").addEventListener("change", () => {
+  const file = $("photo").files[0];
+  if (!file) return;
+  $("preview").src = URL.createObjectURL(file);
+  $("preview").classList.remove("hidden");
+});
+
+$("music").addEventListener("change", () => {
+  const file = $("music").files[0];
+  if (!file) return;
+  $("audioPreview").src = URL.createObjectURL(file);
+  $("audioPreview").classList.remove("hidden");
+});
+
+$("prepare").addEventListener("click", () => {
+  const story = $("story").value.trim();
+  if (!story) {
+    $("status").textContent = "اول داستان یا توضیح صحنه را بنویس.";
+    return;
+  }
+
+  requestText =
+`Create an animated video.
+Visual style: ${$("style").value}.
+Duration: ${$("duration").value} seconds.
+Scene description: ${story}
+Use fluid motion, consistent characters, cinematic camera movement,
+natural lighting and coherent scene transitions.
+Do not create a static image. Generate actual moving video.`;
+
+  $("status").textContent =
+    "درخواست آماده شد؛ اما هنوز موتور تولید ویدئو متصل نیست.\n\n" +
+    requestText;
+});
+
+$("copy").addEventListener("click", async () => {
+  if (!requestText) {
+    $("status").textContent =
+      "اول داستان را بنویس و روی «آماده‌سازی درخواست انیمیشن» بزن.";
+    return;
+  }
+  try {
+    await navigator.clipboard.writeText(requestText);
+    $("status").textContent = "متن درخواست کپی شد.";
+  } catch {
+    $("status").textContent =
+      "کپی خودکار ممکن نشد. متن درخواست را از کادر بالا انتخاب و کپی کن.";
+  }
+});
+</script>
 </body>
 </html>
